@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    /**
+ * 
+ * 
+ * 1、浏览器会把  DOM 和 Javascript(ecmaScript) 独立实现
+ * 
+ * 
+ * IE: javascript 实现名为 JScript  , DOM 实现名 为 mshtml
+ * 
+ * Safari : javascript 实现名为 javascriptcore  , DOM 实现名 为 webcore
+ * 
+ * chrome :  javascript 实现名为 v8  , DOM 实现名 为 webcore
+ * 
+ * firefox :  javascript 实现名为 spiderMonkey  , DOM 实现名 为 Gecko
+ * 
+ * 
+ * 
+ * 
+ * 2、DOM 和 ecmascript 相当于两座孤岛， 他们之间用收费桥梁连接，ecmascript 每次经过这座桥都要交过桥费 
+ * 3、修改元素比访问 更昂贵，因为 它可能导致浏览器重新计算页面
+ */
+
+
+ function loop(){
+     for(let index = 0; index < 1500; index++){
+         // 每次循环元素会访被问两次，第一次： 获取innerHTML ,第二次，写入 innerHTML
+         document.getElementById('id').innerHTML =document.getElementById('id').innerHTML + 'a';
+     }
+ }
+
+
+ // 优化版，总共只访问了2次
+ function loop2(){
+     let contetn = ''
+    for(let index = 0; index < 1500; index++){
+        // 每次循环元素会访被问两次，第一次： 获取innerHTML ,第二次，写入 innerHTML
+        contetn+= 'a';
+    }
+
+    document.getElementById('id').innerHTML =contetn; // 
+}
+
+
+/**
+ * 4、  innerHTML 在老版的浏览器上性能 比  createElement 好
+ * 
+ * 5、伪数组
+ * 
+ * document.images, 所有 img 图片
+ * document.links, 所有a标签
+ * document.forms 所有表单元素
+ * document.forms[0].elements，第一个表单元素中的所有字段
+ * 
+ * 
+ * 6、 当一个DOM属性 或方法需要多次访问，最好使用一个局部变量缓存此成员
+ */    
+        
+    </script>
+
+
+
+<div></div>
+
+<script>
+    let divs = document.getElementsByTagName('div');
+
+    let div = document.createElement('div');
+    div.innerHTML = 'aaaa'
+    document.body.appendChild(div);
+
+    console.log(divs.length) ; // 2
+
+</script>
+</body>
+</html>

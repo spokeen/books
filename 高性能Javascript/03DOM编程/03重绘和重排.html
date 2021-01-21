@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+/**
+ * 1、浏览器解析页面后生成：
+ *      DOM树：表示页面结构
+ *      渲染树：表示DOM节点如何显示
+ *     两棵树构建完后，就开始绘制页面 元素
+ * 
+ * 2、当DOM的变化影响了元素的几何属性（宽、高），浏览器就会重新(受影响的部分)构造渲染树(重排reflow)，重排完后浏览器重新绘制的部分到屏幕(重绘repaint)
+ * 
+ * 如果只改变背景颜色，则只会重绘
+ * 
+ * 
+ * 
+ * 3、重排发生的时机：
+ *      添加、删除可见DOM元素
+ *      元素位置改变
+ *      元素尺寸改变(margin,padding,width,height,border)
+ *      内容改变
+ *      页面渲染器初始化
+ *      浏览器窗口尺寸改变
+ * 
+ * 
+ * 4、offset系列，scroll系列，client系列，getComputedStyle，currentStyle 属性都会使浏览器出发重排
+ * 
+ * 5、最少次重排重绘
+ *             隐藏元素，修改应用，重新显示
+ *              使用 文档片段，构造一个子树，再拷贝回文档(推荐)
+ *              拷贝当前元素到一个脱离文档的节点中，修改副本，再替换原来的元素
+ *              缓存布局信息
+ *     
+ *     
+ *
+ */
+// 方式一： 通过display
+
+
+// 方式二：构造文档片段
+let fram = document.createDocumentFragment();
+let div = document.createElement('div');
+div.innerHTML = 'asdasd';
+fram.appendChild(div)
+document.body.appendChild(fram);
+    
+// 方式三：克隆节点 
+
+let old= document.querySelector('#id');
+let clone  = document.cloneNode(old);
+old.innerHTML=  'new';
+old.parentNode.replaceChild(clone,old);
+    </script>
+</body>
+</html>
